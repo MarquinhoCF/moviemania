@@ -37,7 +37,20 @@
                                     
                                     // Verificar se o email já foi cadastrado
                                     if ($userDao->findByEmail($email) === false) {
-                                        echo "Nenhum usuário foi encontrado <br>";
+                                        $user = new User();
+
+                                        // Criação de token e senha
+                                        $userToken = $user->generateToken();
+                                        $finalPassword = $user->generatePassword($password);
+
+                                        $user->name = $name;
+                                        $user->lastname = $lastname;
+                                        $user->email = $email;
+                                        $user->password = $finalPassword;
+                                        $user->token = $userToken;
+
+                                        $auth = true;
+                                        $userDao->create($user, $auth);
                                     } else {
                                         $message->setMessage("Usuário já cadastrado tente outro e-mail.", "error", "back");
                                     }
