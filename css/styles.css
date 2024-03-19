@@ -41,27 +41,27 @@
     min-width: 30%;
 }
 
-#navbar-nav {
+.navbar-nav {
     justify-content: flex-end;
     width: 100%;
 }
 
-#ent-reg {
+.navbar-nav .nav-item .nav-link {
     color: #FFF;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
     transition: .5s;
 }
 
-#ent-reg:hover {
+.navbar-nav .nav-item .nav-link:hover {
     color: #999;
 }
 
-.bold {
+.navbar-nav .nav-item .nav-link.bold {
     font-weight: bold;
 }
+
+/* .bold {
+    font-weight: bold;
+} */
 
 /* HEADER - MENSAGENS */
 
