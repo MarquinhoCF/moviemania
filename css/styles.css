@@ -120,6 +120,10 @@
     margin: 30px auto;
 }
 
+.form-group {
+    margin-bottom: 5px;
+}
+
 #btn-ent-reg {
     margin-top: 15px;
 }
