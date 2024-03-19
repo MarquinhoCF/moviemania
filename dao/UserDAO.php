@@ -2,7 +2,7 @@
 
     require_once("models/User.php");
 
-    class UserDAO extends UserDAOInterface {
+    class UserDAO implements UserDAOInterface {
 
         private $conn;
         private $url;
