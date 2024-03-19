@@ -99,6 +99,44 @@
     padding: 40px;
 }
 
+/* LOGIN / REGISTER */
+
+#auth-row {
+    justify-content: space-evenly;
+}
+
+#login-container h2,
+#register-container h2 {
+    text-align: center;
+    border-bottom: 2px solid #FF0037;
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+#login-container form,
+#register-container form {
+    max-width: 400px;
+    margin: 30px auto;
+}
+
+#btn-ent-reg {
+    margin-top: 15px;
+}
+
+.card-btn {
+    color:#000 !important;
+    background-color: #FF0037 !important;
+    border: 2px solid #FF0037 !important;
+    width: 100%;
+}
+
+.card-btn:hover {
+    color:#FF0037 !important;
+    background-color: transparent !important;
+    border-color: #FF0037 !important;
+}
+
 /* FOOTER */
 
 #footer {
