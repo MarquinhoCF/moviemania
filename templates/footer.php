@@ -2,13 +2,13 @@
         <div id="social-container">
             <ul>
                 <li>
-                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.facebook.com/marquinho.cferreira"><i class="fab fa-facebook-square"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/marquinho_cf/"><i class="fab fa-instagram"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.youtube.com/channel/UC-XOg0t3Ax_lFiPVWN4p48Q"><i class="fab fa-youtube"></i></a>
                 </li>
             </ul>
         </div>
