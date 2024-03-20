@@ -53,8 +53,31 @@
             }
         }
 
-        public function update(User $user){
+        public function update(User $user, $redirect = true){
+            $stmt = $this->conn->prepare("UPDATE users SET
+                name = :name, 
+                lastname = :lastname, 
+                email = :email, 
+                image = :image,
+                bio = :bio,
+                token = :token
+                WHERE id = :id
+            ");
 
+            $stmt->bindParam(":name", $user->name);
+            $stmt->bindParam(":lastname", $user->lastname);
+            $stmt->bindParam(":email", $user->email);
+            $stmt->bindParam(":image", $user->image);
+            $stmt->bindParam(":bio", $user->bio);
+            $stmt->bindParam(":token", $user->token);
+            $stmt->bindParam(":id", $user->id);
+
+            $stmt->execute();
+
+            if ($redirect) {
+                // Redireciona para o Perfil de Usuário
+                $this->message->setMessage("Dados atualizados com sucesso!", "success", "editprofile.php");
+            }
         }
 
         public function findbyToken($token){
@@ -105,7 +128,27 @@
         }
 
         public function authenticateUser($email, $password){
+            $user = $this->findByEmail($email);
 
+            if ($user) {
+                // Checar a senha bate
+                if (password_verify($password, $user->password)) {
+                    // Gerar um token e inserir na session
+                    $token = $user->generateToken();
+                    $this->setTokenToSession($token, false);
+
+                    // Atualizar token no usuário
+                    $user->token = $token;
+                    $this->update($user, false);
+
+                    return true;
+
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
 
         public function findByEmail($email){

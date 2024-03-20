@@ -25,7 +25,7 @@
 
         public function buildUser($data);
         public function create(User $user, $authUser = false);
-        public function update(User $user);
+        public function update(User $user, $redirect = true);
         public function findbyToken($token);
         public function verifyToken($proteceted = false);
         public function setTokenToSession($token, $redirect = true);
