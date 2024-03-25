@@ -17,10 +17,10 @@
 
 ?>
 
-    <div id="main-container" class="container-fluid">
+    <div id="main-container" class="container-fluid edit-profile-page">
         <div class="col-md-12">
-            <form action="<?= $BASE_URL ?>user_process.php" methos="POST" enctype="multipart/form-data">
-                <input type="hidden" name=""type value="update">
+            <form action="<?= $BASE_URL ?>user_process.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="type" value="update">
                 <div class="row">
                     <div class="col-md-4">
                         <h1><?= $fullName ?></h1>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <label for="lastname">Sobrenome:</label>
-                            <input type="lastName" class="form-control" id="lastName" name="lastName" 
+                            <input type="lastname" class="form-control" id="lastname" name="lastname" 
                             placeholder="Digite o seu sobrenome" value="<?= $userData->lastname ?>">
                         </div>
                         <div class="form-group">
@@ -40,7 +40,7 @@
                             <input type="email" readonly class="form-control disabled" id="email" name="email" 
                             placeholder="Digite o seu email" value="<?= $userData->email ?>">
                         </div>
-                        
+                        <input type="submit" class="btn card-btn" value="Alterar">
                     </div>
                     <div class="col-md-4">
                         <div id="profile-image-container" style="background-image: url('<?= $BASE_URL ?>img/users/<?= $userData->image ?>')"></div>
@@ -55,6 +55,24 @@
                     </div>
                 </div>
             </form>
+            <div class="row" id="change-password-container">
+                <div class="col-md-4">
+                    <h2>Alterar a senha</h2>
+                    <p class="page-description">Digite a nova senha, e confirme para alterar sua senha:</p>
+                    <form action="<?= $BASE_URL ?>user_process.php" methos="POST">
+                        <input type="hidden" name="type" value="changepassword">
+                        <div class="form-group">
+                            <label for="password">Nova senha:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite a sua nova senha">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmpassword">Confirme a nova senha:</label>
+                            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirme a sua nova senha">
+                        </div>
+                        <input type="submit" class="btn card-btn" value="Alterar Senha">
+                    </form>
+                </div>
+            </div>
         </div> 
     </div>
 

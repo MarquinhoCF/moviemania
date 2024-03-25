@@ -124,11 +124,12 @@
     margin-bottom: 5px;
 }
 
-#btn-ent-reg {
+/* #btn-ent-reg {
     margin-top: 15px;
-}
+} */
 
 .card-btn {
+    margin-top: 15px;
     color:#000 !important;
     background-color: #FF0037 !important;
     border: 2px solid #FF0037 !important;
@@ -139,6 +140,34 @@
     color:#FF0037 !important;
     background-color: transparent !important;
     border-color: #FF0037 !important;
+}
+
+/* EDIT PROFILE */
+
+#profile-image-container {
+    width: 150px;
+    height: 150px;
+    border: 6px solid #FF0037;
+    border-radius: 100%;
+    background-size: cover;
+    background-position: center;
+    margin: 15px auto;
+}
+
+#page-description {
+    color: #999;
+}
+
+#bio {
+    max-width: 450px;
+}
+
+.form-control.disabled {
+    background-color: #BBB;
+}
+
+.edit-profile-page .card-btn {
+    width: auto;
 }
 
 /* FOOTER */
