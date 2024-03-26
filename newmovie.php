@@ -22,7 +22,7 @@
                     <label for="title">Título:</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="Digite o título do seu filme">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="image-new-movie">
                     <label for="image">Imagem:</label>
                     <input type="file" class="form-control-file" name="image" id="image">
                 </div>

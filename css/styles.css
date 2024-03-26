@@ -121,7 +121,7 @@
 }
 
 .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 /* #btn-ent-reg {
@@ -168,6 +168,36 @@
 
 .edit-profile-page .card-btn {
     width: auto;
+}
+
+#change-password-container {
+    margin-top: 30px;
+}
+
+/* NEW MOVIE */
+
+.new-movie-container {
+    text-align: center;
+}
+
+#add-movie-form {
+    text-align: left;
+}
+
+.movie-image-container {
+    height: 400px;
+    min-width: 200px;
+    background-position: center;
+    background-size: cover;
+}
+
+.page-title:after {
+    content: "";
+    width: 300px;
+    border-bottom: 2px solid #FF0037;
+    display: block;
+    margin: 0 auto;
+    padding-top: 7px;
 }
 
 /* FOOTER */
