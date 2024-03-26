@@ -17,7 +17,7 @@
     <h2 class="section-title">Dashborad</h2>
     <p class="section-description">Atualize as informações dos filmes que você enviou</p>
     <div class="col-md-12" id="add-movie-container">
-        <a href="<?= $BASE_URL ?>newmovie.php" class="btn form-btn">
+        <a href="<?= $BASE_URL ?>newmovie.php" class="btn card-btn">
             <i class="fas fa-plus"></i> Adicionar Filme
         </a>
     </div>

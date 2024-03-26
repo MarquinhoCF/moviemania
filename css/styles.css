@@ -239,14 +239,91 @@
     background-color: #BBB;
 }
 
-.edit-profile-page .card-btn
-#add-movie-container .card-btn {
+.edit-profile-page .card-btn {
     width: auto;
 }
 
 #change-password-container {
     margin-top: 30px;
 }
+
+/* DASHBOARD */
+
+#add-movie-container {
+    text-align: right;
+}
+
+#add-movie-container .card-btn {
+    text-align: right;
+    width: auto;
+    max-width: 220px;
+}
+
+#movies-dashboard .table {
+    --bs-table-color: #FFF; /* color */
+    --bs-table-bg: #000; /* background-color */
+    margin-top: 30px;
+}
+
+#movies-dashboard .table th {
+    border-top: none;
+}
+
+#movies-dashboard .table tr {
+    padding: 15px 0;
+}
+
+.table-movie-title {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .5s;
+}
+
+.table-movie-title:hover {
+    color: #FF0037;
+}
+
+.actions-column {
+    max-width: 75px;
+    text-align: center;
+}
+
+.actions-column form {
+    display: inline-block;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0 5px;
+    font-weight: bold;
+    transition: .5s;
+    border: none;
+}
+
+.edit-btn {
+    background-color: #0DCAF0;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.edit-btn:hover {
+    background-color: transparent;
+    color: #0DCAF0;
+}
+
+.delete-btn {
+    background-color: #DC3545;
+    color: #FFF;
+}
+
+.delete-btn:hover {
+    background-color: transparent;
+    color: #DC3545;
+}
+
 
 /* NEW MOVIE */
 
