@@ -4,6 +4,7 @@
     require_once("db.php");
     require_once("models/User.php");
     require_once("models/Message.php");
+    require_once("models/ImageUtils.php");
     require_once("dao/UserDAO.php");
 
     $message = new Message($BASE_URL);
@@ -51,7 +52,7 @@
                     $imageFile = imagecreatefrompng($img["tmp_name"]);
                 }
 
-                $imageName = $user->imageGenerateName($img["tmp_name"]);
+                $imageName = ImageUtils::imageGenerateName($img["tmp_name"]);
                 imageJpeg($imageFile, "./img/users/" . $imageName, 100);
                 $userData->image = $imageName;
             } else {
