@@ -1,5 +1,5 @@
-<?php 
-    if (!isset($movie->image) == "") {
+<?php
+    if ($movie->image == "") {
         $movie->image = "movie_cover.jpg";
     }
 ?>
