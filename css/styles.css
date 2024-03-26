@@ -239,7 +239,8 @@
     background-color: #BBB;
 }
 
-.edit-profile-page .card-btn {
+.edit-profile-page .card-btn
+#add-movie-container .card-btn {
     width: auto;
 }
 
