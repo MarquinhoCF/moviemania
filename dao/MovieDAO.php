@@ -26,7 +26,7 @@
             $movie->trailer = $data["trailer"];
             $movie->category = $data["category"];
             $movie->length = $data["length"];
-            $movie->userID = $data["userID"];
+            $movie->userID = $data["users_id"];
 
             return $movie;
 
@@ -37,7 +37,20 @@
         }
 
         public function getLatestMovies() {
+            $movies = [];
 
+            $stmt = $this->conn->query("SELECT * FROM movies ORDER BY id DESC");
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $moviesArray = $stmt->fetchAll();
+
+                foreach($moviesArray as $movie) {
+                    $movies[] = $this->buildMovie($movie);
+                }
+            }
+
+            return $movies;
         }
 
         public function getMoviesByCategory($category) {
