@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label for="trailer">Trailer:</label>
-                    <input type="text" class="form-control" name="trailer" id="trailer" placeholder="Insira o link do trailer">
+                    <input type="text" class="form-control" name="trailer" id="trailer" placeholder="Insira o link do trailer no Youtube">
                 </div>
                 <div class="form-group">
                     <label for="description">Descrição:</label>

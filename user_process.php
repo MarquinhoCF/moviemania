@@ -37,7 +37,8 @@
 
         // Upload imagem
         if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
-            
+            $errorSendImage = false;
+
             $img = $_FILES["image"];
             $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
             $jpgArrays = ["image/jpeg", "image/jpg"];
@@ -56,11 +57,15 @@
                 imageJpeg($imageFile, "./img/users/" . $imageName, 100);
                 $userData->image = $imageName;
             } else {
-                $message->setMessage("Tipo inválido de imagem. Insira png ou jpg!", "error", "back");
+                $errorSendImage = true;
             }
         }
 
-        $userDao->update($userData);
+        if ($errorSendImage) {
+            $message->setMessage("Tipo inválido de imagem. Insira png ou jpg!", "error", "back");
+        } else {
+            $userDao->update($userData);
+        }
 
     // Atualizar semha de usuário
     } else if ($type === "changepassword") {
