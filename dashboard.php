@@ -4,12 +4,17 @@
 
     // Verificando se o usuário está autenticado
     require_once("dao/UserDAO.php");
+    require_once("dao/MovieDAO.php");
     require_once("models/User.php");
+    require_once("models/Movie.php");
 
     $user = new User();
     $userDao = new UserDAO($conn, $BASE_URL);
+    $movieDao = new MovieDAO($conn, $BASE_URL);
 
     $userData = $userDao->verifyToken(true);
+
+    $userMovies = $movieDao->getMoviesByUserId($userData->id);
 
 ?>
 
@@ -30,25 +35,29 @@
                 <th scope="col" class="actions-column">Ações</th>
             </thead>
             <tbody>
-                <tr>
-                    <td scope="row">1</td>
-                    <td>
-                        <a href="#" class="table-movie-title">Título</a>
-                    </td>
-                    <td>
-                        <i class="fas fa-star"></i> 9
-                    </td>
-                    <td class="actions-column">
-                        <a href="" class="edit-btn">
-                            <i class="fas fa-edit"></i> Editar
-                        </a>
-                        <form action="">
-                            <button type="submit" class="delete-btn">
-                                <i class="fas fa-times"></i> Deletar
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                <?php foreach ($userMovies as $movie): ?>
+                    <tr>
+                        <td scope="row"><?= $movie->id ?></td>
+                        <td>
+                            <a href="<?= $BASE_URL ?>movie.php?id=<?= $movie->id ?>" class="table-movie-title"><?= $movie->title ?></a>
+                        </td>
+                        <td>
+                            <i class="fas fa-star"></i> 9
+                        </td>
+                        <td class="actions-column">
+                            <a href="<?= $BASE_URL ?>editmovie.php?id=<?= $movie->id ?>" class="edit-btn">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <form action="<?= $BASE_URL ?>movie_process.php">
+                                <input type="hidden" name="type" value="delete">
+                                <input type="hidden" name="id" value="<?= $movie->id ?>">
+                                <button type="submit" class="delete-btn">
+                                    <i class="fas fa-times"></i> Deletar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

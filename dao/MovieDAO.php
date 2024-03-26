@@ -63,7 +63,7 @@
             );
 
             $stmt->bindParam(":category", $category);
-            
+
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
@@ -78,7 +78,26 @@
         }
 
         public function getMoviesByUserId($userID) {
+            $movies = [];
 
+            $stmt = $this->conn->prepare("
+                SELECT * FROM movies 
+                WHERE users_id = :users_id"
+            );
+
+            $stmt->bindParam(":users_id", $userID);
+            
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $moviesArray = $stmt->fetchAll();
+
+                foreach($moviesArray as $movie) {
+                    $movies[] = $this->buildMovie($movie);
+                }
+            }
+
+            return $movies;
         }
 
         public function findById($id) {
