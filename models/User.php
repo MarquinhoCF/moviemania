@@ -23,6 +23,10 @@
             return bin2hex(random_bytes(50));
         }
 
+        public function imageGenerateName() {
+            return bin2hex(random_bytes(60)) . "jpeg";
+        }
+
     }
 
     interface UserDAOInterface {
