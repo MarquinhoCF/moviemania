@@ -64,6 +64,55 @@
     // Atualizar semha de usuário
     } else if ($type === "changepassword") {
 
+        // Receber dados do post
+        $password = filter_input(INPUT_POST, "password");
+        $confirmpassword = filter_input(INPUT_POST, "confirmpassword");
+
+        // Resgata dados do usuário
+        $userData = $userDao->verifyToken();
+        $id = $userData->id;
+
+        if ($password === $confirmpassword) {
+            // Verifica se a senha tem pelo menos 6 caracteres
+            if (strlen($password) > 5) {
+                // Verifica se há caracteres alfabético
+                if (preg_match('/[a-z]/', strtolower($password))) {
+                    // Verifica se há pelo menos um caractere alfabético maiúsculo e minusculo
+                    if (preg_match('/[A-Z]/', $password) && preg_match('/[a-z]/', $password)) {
+                        // Verifica se há pelo menos um número
+                        if (preg_match('/\d/', $password)) {
+                            // Verifica se há pelo menos um caractere especial
+                            if (preg_match('/[!@#$%^&*()_+=\-[\]{};:\'"\\|,.<>\/?]/', $password)) {
+                                
+                                // Criar uma nova instância de User
+                                $user = new User();
+
+                                $finalPassword = $user->generatePassword($password);
+
+                                $user->id = $id;
+                                $user->password = $finalPassword;
+
+                                $userDao->changePassword($user);
+
+                            } else {
+                                $message->setMessage("A senha deve conter pelo menos 1 caracter especial.", "error", "back");
+                            }
+                        } else {
+                            $message->setMessage("A senha deve conter pelo menos 1 número.", "error", "back");
+                        }
+                    } else {
+                        $message->setMessage("A senha deve conter pelo menos 1 caracter maiúsculo e minúsculo.", "error", "back");
+                    }
+                } else {
+                    $message->setMessage("A senha deve conter caracteres alfabéticos.", "error", "back");
+                }
+            } else {
+                $message->setMessage("A senha deve conter pelo menos 6 caracteres.", "error", "back");
+            }
+        } else {
+            $message->setMessage("As senhas não são iguais.", "error", "back");
+        }
+
     } else {
         $message->setMessage("Informações inválidas.", "error", "index.php");
     }
