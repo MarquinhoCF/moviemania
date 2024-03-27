@@ -59,10 +59,6 @@
     font-weight: bold;
 }
 
-/* .bold {
-    font-weight: bold;
-} */
-
 /* HEADER - MENSAGENS */
 
 .msg-container {
@@ -239,8 +235,7 @@
     background-color: #BBB;
 }
 
-.edit-profile-page .card-btn,
-#review-form .card-btn {
+.edit-profile-page .card-btn {
     width: auto;
 }
 
@@ -350,6 +345,77 @@
     display: block;
     margin: 0 auto;
     padding-top: 7px;
+}
+
+/* VIEW MOVIE */
+
+.movie-container {
+    text-align: center;
+}
+
+.movie-details {
+    margin: 25px 0;
+}
+
+.pipe {
+    border: 1px solid #333;
+    margin: 0 10px;
+}
+
+#reviews-container {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 4px solid #FF0037;
+}
+
+#reviews-title {
+    margin-bottom: 25px;
+}
+
+#review-form-container {
+    background-color: #333;
+    padding: 20px;
+}
+
+#review-form-container select,
+#review-form-container textarea {
+    width: 50%;
+}
+
+#review-form .form-btn {
+    width: auto;
+    color: #000;
+    background-color: #FF0037;
+    border: 2px solid #FF0037;
+    font-weight: 500;
+}
+
+.review {
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+}
+
+.author-details-container {
+    padding-top: 20px;
+}
+
+.author-name a {
+    color: #FF0037;
+    text-decoration: none;
+}
+
+.comment-title {
+    color: #999;
+}
+
+.profile-image-container {
+    width: 70px;
+    height: 70px;
+    border: 6px solid #FF0037;
+    border-radius: 100%;
+    background-size: cover;
+    background-position: center;
+    margin: 15px auto;
 }
 
 /* FOOTER */
