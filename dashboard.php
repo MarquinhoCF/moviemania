@@ -19,7 +19,7 @@
 ?>
 
 <div id="main-container" class="container-fluid">
-    <h2 class="section-title">Dashborad</h2>
+    <h2 class="section-title">Dashboard</h2>
     <p class="section-description">Atualize as informações dos filmes que você enviou</p>
     <div class="col-md-12" id="add-movie-container">
         <a href="<?= $BASE_URL ?>newmovie.php" class="btn card-btn">

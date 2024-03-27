@@ -56,7 +56,6 @@
 
             // Upload de imagem do filme
             if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
-            
                 $img = $_FILES["image"];
                 $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
                 $jpgArrays = ["image/jpeg", "image/jpg"];
