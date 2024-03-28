@@ -471,6 +471,29 @@
     display: inline-block;
 }
 
+/* EDIT MOVIE */
+
+.edit-movie-title {
+    border-left: 4px solid #FF0037;
+    padding-left: 12px;
+    margin-top: 20px;
+}
+
+.page-description {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+#edit-movie-form .card-btn {
+    width: auto;
+}
+
+#edit-movie-image {
+    width: 500px;
+    height: 800px;
+}
+
+
 /* FOOTER */
 
 #footer {
