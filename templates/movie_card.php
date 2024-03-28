@@ -4,7 +4,9 @@
     }
 ?>
 <div class="card movie-card">
-    <div class="card-img-top" style="background-image: url('<?= $BASE_URL ?>img/movies/<?= $movie->image ?>')"></div>
+    <a href="<?= $BASE_URL ?>movie.php?id=<?= $movie->id ?>">
+        <div class="card-img-top" style="background-image: url('<?= $BASE_URL ?>img/movies/<?= $movie->image ?>')"></div>
+    </a>
     <div class="card-body">
         <p class="card-rating">
             <i class="fas fa-star"></i>

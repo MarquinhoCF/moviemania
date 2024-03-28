@@ -290,7 +290,8 @@
 }
 
 .edit-btn,
-.delete-btn {
+.delete-btn,
+.cancel-btn {
     padding: 5px 10px;
     border-radius: 5px;
     margin: 0 5px;
@@ -362,6 +363,18 @@
     margin: 0 10px;
 }
 
+.movie-description {
+    margin-top: 20px;
+}
+
+.movie-image-container {
+    height: 700px;
+    width: auto; /* Definindo a largura como automática */
+    background-size: cover;
+    background-position: center;
+    margin: 15px auto;
+}
+
 #reviews-container {
     margin-top: 20px;
     padding-top: 20px;
@@ -416,6 +429,46 @@
     background-size: cover;
     background-position: center;
     margin: 15px auto;
+}
+
+/* CONFIRM DELETE */
+
+.confirm-title:after {
+    content: "";
+    width: 210px;
+    border-bottom: 2px solid #FF0037;
+    display: block;
+    margin: 0 auto;
+    padding-top: 7px;
+}
+
+.confirm-description {
+    margin-top: 20px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.cancel-btn {
+    background-color: #25f772;
+    color: #FFF;
+    text-decoration: none;
+    margin-right: 50px;
+}
+
+.cancel-btn:hover {
+    background-color: transparent;
+    color: #25f772;
+    text-decoration: none;
+}
+
+.confirm-actions {
+    margin-top: 50px;
+}
+
+.confirm-actions form {
+    display: inline-block;
 }
 
 /* FOOTER */

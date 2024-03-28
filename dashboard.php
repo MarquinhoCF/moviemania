@@ -48,9 +48,10 @@
                             <a href="<?= $BASE_URL ?>editmovie.php?id=<?= $movie->id ?>" class="edit-btn">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
-                            <form action="<?= $BASE_URL ?>movie_process.php">
-                                <input type="hidden" name="type" value="delete">
+                            <form action="<?= $BASE_URL ?>confirm_delete_movie.php" method="POST">
+                                <input type="hidden" name="type" value="confirm delete">
                                 <input type="hidden" name="id" value="<?= $movie->id ?>">
+                                <input type="hidden" name="title" value="<?= $movie->title ?>">
                                 <button type="submit" class="delete-btn">
                                     <i class="fas fa-times"></i> Deletar
                                 </button>
