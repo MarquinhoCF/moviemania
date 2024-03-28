@@ -4,6 +4,7 @@
 
     // Verifica se o usuário está logado
     require_once("models/User.php");
+    require_once("models/Movie.php");
     require_once("dao/UserDAO.php");
     require_once("dao/MovieDAO.php");
 
