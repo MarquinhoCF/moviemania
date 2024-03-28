@@ -148,17 +148,17 @@
 
 .rate-btn {
     margin-bottom: 15px;
-    color: #5799EF !important;
-    background-color: #333 !important;
-    border-color: #333 !important;
+    color: #000 !important;
+    background-color: #F5C518 !important;
+    border-color: #F5C518 !important;
     width: 100%;
     font-weight: bold !important;
 }
 
 .rate-btn:hover {
     color: #FFF !important;
-    background-color: #444 !important;
-    border-color: #444 !important;
+    background-color: #ab8707 !important;
+    border-color: #ab8707 !important;
 }
 
 .empty-list {
@@ -209,6 +209,74 @@
     color:#FF0037 !important;
     background-color: transparent !important;
     border-color: #FF0037 !important;
+}
+
+/* PROFILE */
+
+.profile-container {
+    justify-content: center;
+}
+
+.profile-container .profile-image {
+    margin: 20px auto;
+}
+
+.profile-about-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-about-row span {
+    width: 175px;
+}
+
+.profile-about-row .about-title {
+    color: #CCC;
+    text-align: center;
+}
+
+.profile-about-row .card-btn {
+    width: 175px;
+}
+
+.profile-description {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.added-movies-container,
+#about-container {
+    padding-top: 20px;
+}
+
+#about-container {
+    text-align: center;
+    background-color: #242424;
+    border-bottom: 3px solid #CCC;
+}
+
+.added-movies-container {
+    background-color: #242424;
+}
+
+.added-movies-container .movies-container {
+    justify-content: center;
+    padding: 20px;
+}
+
+.added-movies-container .movie-card {
+    width: 31%
+}
+
+.profile-movies-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-movies-row .card-btn {
+    max-width: 175px;
 }
 
 /* EDIT PROFILE */
@@ -386,7 +454,7 @@
 }
 
 #review-form-container {
-    background-color: #333;
+    background-color: #242424;
     padding: 20px;
 }
 
@@ -405,7 +473,7 @@
 
 .review {
     padding: 20px 0;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #242424;
 }
 
 .author-details-container {
@@ -525,7 +593,7 @@
 }
 
 #social-container li:hover {
-  background-color: #333;
+  background-color: #242424;
 }
 
 #social-container a,
