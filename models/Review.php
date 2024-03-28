@@ -12,9 +12,9 @@
     interface ReviewDAOInterface {
 
         public function buildReview($data);
-        public function cretae(Review $review);
+        public function create(Review $review);
         public function getMoviesReview($id);
         public function hasAlreadyReviewed($id, $userID);
         public function getRatings($id);
-        
+
     }

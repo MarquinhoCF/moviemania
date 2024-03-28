@@ -74,6 +74,7 @@
                         <div class="form-group">
                             <label for="rating">Nota do Filme:</label>
                             <select name="rating" id="rating" class="form-control">
+                                <option value="">Selecione</option>
                                 <option value="10">10</option>
                                 <option value="9">9</option>
                                 <option value="8">8</option>

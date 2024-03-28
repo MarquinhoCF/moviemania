@@ -28,8 +28,22 @@
             return $newReview;
         }
 
-        public function cretae(Review $review) {
+        public function create(Review $review) {
+            $stmt = $this->conn->prepare("INSERT INTO reviews(
+                    rating, review, movies_id, users_id
+                ) VALUES (
+                    :rating, :review, :movies_id, :users_id
+                )");
 
+            $stmt->bindParam(":rating", $review->rating);
+            $stmt->bindParam(":review", $review->review);
+            $stmt->bindParam(":movies_id", $review->movies_id);
+            $stmt->bindParam(":users_id", $review->users_id);
+
+            $stmt->execute();
+            
+            // Sucesso e redirecionamento
+            $this->message->setMessage("Crítica adicionada com sucesso!", "success", "back");
         }
 
         public function getMoviesReview($id) {
