@@ -59,12 +59,16 @@
                 $img = $_FILES["image"];
                 $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
                 $jpgArrays = ["image/jpeg", "image/jpg"];
-    
+                $webpArray = ["image/webp"];
+            
                 // Checagem de tipo de imagem
                 if(in_array($img["type"], $imageTypes)) {
                     // Imagem é jpg
                     if (in_array($img["type"], $jpgArrays)) {
                         $imageFile = imagecreatefromjpeg($img["tmp_name"]);
+                    // Imagem é webp
+                    } else if (in_array($img["type"], $webpArray)) {
+                        $imageFile = imagecreatefromwebp($img["tmp_name"]);
                     // Imagem é png
                     } else {
                         $imageFile = imagecreatefrompng($img["tmp_name"]);
@@ -81,7 +85,7 @@
             if ($errorSendTrailer) {
                 $message->setMessage("Link de trailer inválido, insira o link de um vídeo embed do youtube! Dica: abra o trailer de sua escolha no youtube clique no botão compartilhar e depois no botão incorporar, copie o link e cole. Exemplo: https://www.youtube.com/embed/rsQEor4y2hg?si=6ed2RgXTWjonZap5", "error", "back");
             } else if ($errorSendImage) {
-                $message->setMessage("Tipo inválido de imagem. Insira png ou jpg!", "error", "back");
+                $message->setMessage("Tipo inválido de imagem. Insira png, jpg ou webp!", "error", "back");
             } else {
                 $movieDao->create($movie);
             }
@@ -90,7 +94,95 @@
             $message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
         }
     
-    // Confirma exclusão de filme
+    // Atualização de filme
+    } else if ($type === "update") {
+
+        // Receber os dados dos inputs
+        $title = filter_input(INPUT_POST, "title");
+        $description = filter_input(INPUT_POST, "description");
+        $trailer = filter_input(INPUT_POST, "trailer");
+        $category = filter_input(INPUT_POST, "category");
+        $length = filter_input(INPUT_POST, "length");
+        $id = filter_input(INPUT_POST, "id");
+
+        $movie = $movieDao->findById($id);
+
+        // Verifica se encontrou o filme
+        if ($movie) {
+            
+            if ($movie->userID === $userData->id) {
+                // Validação dos dados para edição do filme
+                if (!empty($title) && !empty($description) && !empty($category)) {
+                    $errorSendTrailer = false;
+                    $errorSendImage = false;
+
+                    $movie->title = $title;
+                    $movie->description = $description;
+                    $movie->category = $category;
+                    $movie->length = $length;
+
+                    // Verificando se o link passado é um link de um vídeo no youtube
+                    if (!empty($trailer)) {
+                        // Padrão de expressão regular para verificar se a string é um link do YouTube Embed
+                        $pattern = '/^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/(embed|v)\/.+/';
+
+                        // Verifica se a string corresponde ao padrão
+                        if (preg_match($pattern, $trailer)) {
+                            $movie->trailer = $trailer;
+                        } else {
+                            $errorSendTrailer = true;
+                        }
+                    }
+
+                    // Upload de imagem do filme
+                    if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
+                        $img = $_FILES["image"];
+                        $imageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/png"];
+                        $jpgArrays = ["image/jpeg", "image/jpg"];
+                        $webpArray = ["image/webp"];
+            
+                        // Checagem de tipo de imagem
+                        if(in_array($img["type"], $imageTypes)) {
+                            // Imagem é jpg
+                            if (in_array($img["type"], $jpgArrays)) {
+                                $imageFile = imagecreatefromjpeg($img["tmp_name"]);
+                            // Imagem é webp
+                            } else if (in_array($img["type"], $webpArray)) {
+                                $imageFile = imagecreatefromwebp($img["tmp_name"]);
+                            // Imagem é png
+                            } else {
+                                $imageFile = imagecreatefrompng($img["tmp_name"]);
+                            }
+            
+                            $imageName = ImageUtils::imageGenerateName($img["tmp_name"]);
+                            imageJpeg($imageFile, "./img/movies/" . $imageName, 100);
+                            $movie->image = $imageName;
+                        } else {
+                            $errorSendImage = true;
+                        }
+                    }
+
+                    if ($errorSendTrailer) {
+                        $message->setMessage("Link de trailer inválido, insira o link de um vídeo embed do youtube! Dica: abra o trailer de sua escolha no youtube clique no botão compartilhar e depois no botão incorporar, copie o link e cole. Exemplo: https://www.youtube.com/embed/rsQEor4y2hg?si=6ed2RgXTWjonZap5", "error", "back");
+                    } else if ($errorSendImage) {
+                        $message->setMessage("Tipo inválido de imagem. Insira png, jpg ou webp!", "error", "back");
+                    } else {
+                        $movieDao->update($movie);
+                    }
+
+                } else {
+                    $message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
+                }
+
+            } else {
+                $message->setMessage("Informações inválidas.", "error", "index.php");
+            }
+
+        } else {
+            $message->setMessage("Informações inválidas.", "error", "index.php");
+        }
+
+    // Exclusão de filme
     } else if ($type === "delete") {
 
         // Recebe os dados do form
