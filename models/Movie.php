@@ -10,6 +10,7 @@
         public $category;
         public $length;
         public $userID;
+        public $rating;
 
     }
 
