@@ -595,6 +595,22 @@
     height: 800px;
 }
 
+/* SEARCH */
+
+#search-title {
+    font-size: 40px;
+}
+
+#search-result,
+.back-link {
+    color: #FF0037;
+    text-decoration: none;
+}
+
+#result-empty-list {
+    margin-top: 60px;
+}
+
 
 /* FOOTER */
 

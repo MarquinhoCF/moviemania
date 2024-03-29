@@ -127,7 +127,26 @@
         }
 
         public function findByTitle($title) {
+            $movies = [];
 
+            $stmt = $this->conn->prepare("
+                SELECT * FROM movies 
+                WHERE title LIKE :title"
+            );
+
+            $stmt->bindValue(":title", '%' . $title . '%'); 
+            
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $moviesArray = $stmt->fetchAll();
+
+                foreach($moviesArray as $movie) {
+                    $movies[] = $this->buildMovie($movie);
+                }
+            }
+
+            return $movies;
         }
 
         public function create(Movie $movie) {
