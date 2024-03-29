@@ -5,6 +5,7 @@
     // Verifica se o usuário está autenticado
     require_once("models/Movie.php");
     require_once("dao/MovieDAO.php");
+    require_once("dao/ReviewDAO.php");
 
     // Pegar o id do filme
     $id = filter_input(INPUT_GET, "id");
@@ -12,6 +13,7 @@
     $movie;
 
     $movieDao = new MovieDAO($conn, $BASE_URL);
+    $reviewDao = new ReviewDAO($conn, $BASE_URL);
 
     if (!empty($id)) {
         $movie = $movieDao->findById($id);
@@ -36,10 +38,15 @@
         if ($userData->id === $movie->userID) {
             $userOwnsMovie = true;
         }
+
+        // Vendo se o usuário já avaliou esse filme
+        $alreadyReviewed = $reviewDao->hasAlreadyReviewed($id, $userData->id);
+    } else {
+        $unAuthenticatedUser = true;
     }
 
     // Resgatar as reviews do filme
-    $alreadyReviewed = false;
+    $movieReviews = $reviewDao->getMoviesReview($id);
 ?>
 
 <div id="main-container" class="container-fluid">
@@ -62,6 +69,15 @@
             <div class="movie-image-container" style="background-image : url('<?= $BASE_URL ?>img/movies/<?= $movie->image ?>')"></div>
         </div>
         <div class="offset-md-1 col-md-10" id="reviews-container">
+            <?php if ($unAuthenticatedUser): ?>
+                <div class="col-md-12 text-center" id="unauthenticated-user-call">
+                    <h4>Faça o <span class="red">login</span> ou <span class="red">cadastre-se</span> já!</h4>
+                    <p class="section-description">Para adicionar sua crítica à <span class="bold"><?= $movie->title ?></span></p>
+                    <a href="<?= $BASE_URL ?>auth.php" class="btn card-btn">
+                    <i class="fas fa-plus"></i><i class="fas fa-user"></i>  Entrar/Cadastrar
+                    </a>
+                </div>
+            <?php endif; ?>
             <h3 class="reviews-title">Avaliações</h3>
             <!-- Verifica se habilita a review para o usuário -->
             <?php if (!empty($userData) && !$userOwnsMovie && !$alreadyReviewed): ?>
@@ -96,40 +112,12 @@
                 </div>
             <?php endif; ?>
             <!-- Comentário -->
-            <div class="col-md-12 review">
-                <div class="row">
-                    <div class="col-md-1">
-                        <div class="profile-image-container review-image" style="background-image: url('<?= $BASE_URL ?>img/users/user.png')"></div>
-                    </div>
-                    <div class="col-md-9 author-details-container">
-                        <h4 class="author-name">
-                            <a href="#">Marcos Teste</a>
-                        </h4>
-                        <p><i class="fa fas-star"></i> 9</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="comment-title">Comentário:</p>
-                        <p>Este é o documentário do usuário</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 review">
-                <div class="row">
-                    <div class="col-md-1">
-                        <div class="profile-image-container review-image" style="background-image: url('<?= $BASE_URL ?>img/users/user.png')"></div>
-                    </div>
-                    <div class="col-md-9 author-details-container">
-                        <h4 class="author-name">
-                            <a href="#">Marcos Teste</a>
-                        </h4>
-                        <p><i class="fa fas-star"></i> 9</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p class="comment-title">Comentário:</p>
-                        <p>Este é o documentário do usuário</p>
-                    </div>
-                </div>
-            </div>
+            <?php foreach($movieReviews as $review): ?>
+                <?php include("templates/user_review.php"); ?>
+            <?php endforeach; ?>
+            <?php if (count($movieReviews) === 0): ?>
+                <p class="empty-list">Não há comentários para esse filme ainda...</p>
+            <?php endif; ?>
         </div>
     </div>
 </div>

@@ -9,11 +9,13 @@
         private $conn;
         private $url;
         private $message;
+        private $userDao;
 
         public function __construct(PDO $conn, $url) {
             $this->conn = $conn;
             $this->url = $url;
             $this->message = new Message($url);
+            $this->userDao = new UserDAO($conn, $url);
         }
 
         public function buildReview($data) {
@@ -47,11 +49,44 @@
         }
 
         public function getMoviesReview($id) {
+            $reviews = [];
 
+            $stmt = $this->conn->prepare("SELECT * FROM reviews WHERE movies_id = :movies_id");
+
+            $stmt->bindParam(":movies_id", $id);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $reviewsData = $stmt->fetchAll();
+
+                foreach($reviewsData as $reviewData) {
+                    $review = $this->buildReview($reviewData);
+
+                    // Chamar os dados do usuário
+                    $user = $this->userDao->findById($review->users_id);
+                    $review->user = $user;
+
+                    $reviews[] = $review;
+                }
+            }
+            
+            return $reviews;
         }
 
         public function hasAlreadyReviewed($id, $userID) {
+            $stmt = $this->conn->prepare("SELECT * FROM reviews WHERE movies_id = :movies_id AND users_id = :users_id;");
 
+            $stmt->bindParam(":movies_id", $id);
+            $stmt->bindParam(":users_id", $userID);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public function getRatings($id) {
