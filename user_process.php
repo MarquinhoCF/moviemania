@@ -42,12 +42,16 @@
             $img = $_FILES["image"];
             $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
             $jpgArrays = ["image/jpeg", "image/jpg"];
+            $webpArray = ["image/webp"];
 
             // Checagem de tipo de imagem
             if(in_array($img["type"], $imageTypes)) {
                 // Imagem é jpg
                 if (in_array($img["type"], $jpgArrays)) {
                     $imageFile = imagecreatefromjpeg($img["tmp_name"]);
+                // Imagem é webp
+                } else if (in_array($img["type"], $webpArray)) {
+                    $imageFile = imagecreatefromwebp($img["tmp_name"]);
                 // Imagem é png
                 } else {
                     $imageFile = imagecreatefrompng($img["tmp_name"]);
@@ -62,7 +66,7 @@
         }
 
         if ($errorSendImage) {
-            $message->setMessage("Tipo inválido de imagem. Insira png ou jpg!", "error", "back");
+            $message->setMessage("Tipo inválido de imagem. Insira png, jpg ou webp!", "error", "back");
         } else {
             $userDao->update($userData);
         }

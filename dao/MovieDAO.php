@@ -136,6 +136,14 @@
             if ($moviesNumber > 0) {
                 $moviesArray = $stmt->fetchAll();
 
+                $moviesUncliped = [];
+
+                foreach($moviesArray as $movie) {
+                    $moviesUncliped[] = $this->buildMovie($movie);
+                }
+
+                usort($moviesUncliped, 'compareMovies');
+
                 if (isset($qtd)) {
                     $n = $moviesNumber;
                     if ($moviesNumber > $qtd) {
@@ -143,15 +151,11 @@
                     }
 
                     for ($i = 0; $i < $n; $i++) {
-                        $movies[] = $this->buildMovie($moviesArray[$i]);
+                        $movies[] = $moviesUncliped[$i];
                     }
                 } else {
-                    foreach($moviesArray as $movie) {
-                        $movies[] = $this->buildMovie($movie);
-                    }
+                    return $moviesUncliped;
                 }
-
-                usort($movies, 'compareMovies');
             }
 
             return $movies;

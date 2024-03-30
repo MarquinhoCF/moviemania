@@ -107,6 +107,15 @@
     font-size: 18px;
 }
 
+.section-description a {
+    color: #FF0037;
+    text-decoration: none;
+}
+
+.section-description a:hover {
+    text-decoration: underline;
+}
+
 .movies-container {
     display: flex;
     flex-wrap: wrap;
@@ -602,12 +611,14 @@
 }
 
 #search-result,
-.back-link {
+.back-link,
+#category-selected {
     color: #FF0037;
     text-decoration: none;
 }
 
-#result-empty-list {
+#result-empty-list,
+#category-empty-list {
     margin-top: 20px;
 }
 
