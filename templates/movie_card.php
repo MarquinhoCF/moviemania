@@ -3,7 +3,7 @@
         $movie->image = "movie_cover.jpg";
     }
 ?>
-<div class="card movie-card">
+<div class="card movie-card scroll-item">
     <a href="<?= $BASE_URL ?>movie.php?id=<?= $movie->id ?>">
         <div class="card-img-top" style="background-image: url('<?= $BASE_URL ?>img/movies/<?= $movie->image ?>')"></div>
     </a>

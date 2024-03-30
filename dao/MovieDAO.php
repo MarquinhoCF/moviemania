@@ -4,6 +4,16 @@
     require_once("models/Message.php");
     require_once("dao/ReviewDAO.php");
 
+    function compareMovies($movie1, $movie2) {
+        if ($movie1->rating === $movie2->rating) {
+            return 0;
+        }
+        $val1 = $movie1->rating === "Não avaliado" ? 0 : $movie1->rating;
+        $val2 = $movie2->rating === "Não avaliado" ? 0 : $movie2->rating;
+
+        return ($val1 < $val2) ? 1 : -1;
+    }
+
     class MovieDAO implements MovieDAOInterface {
         
         private $conn;
@@ -41,24 +51,37 @@
 
         }
 
-        public function getLatestMovies() {
+        public function getLatestMovies($qtd = null) {
             $movies = [];
 
             $stmt = $this->conn->query("SELECT * FROM movies ORDER BY id DESC");
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
+            $moviesNumber = $stmt->rowCount();
+
+            if ($moviesNumber > 0) {
                 $moviesArray = $stmt->fetchAll();
 
-                foreach($moviesArray as $movie) {
-                    $movies[] = $this->buildMovie($movie);
+                if (isset($qtd)) {
+                    $n = $moviesNumber;
+                    if ($moviesNumber > $qtd) {
+                        $n = $qtd;
+                    }
+
+                    for ($i = 0; $i < $n; $i++) {
+                        $movies[] = $this->buildMovie($moviesArray[$i]);
+                    }
+                } else {
+                    foreach($moviesArray as $movie) {
+                        $movies[] = $this->buildMovie($movie);
+                    }
                 }
             }
 
             return $movies;
         }
 
-        public function getMoviesByCategory($category) {
+        public function getMoviesByCategory($category, $qtd = null) {
             $movies = [];
 
             $stmt = $this->conn->prepare("
@@ -71,12 +94,64 @@
 
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
+            $moviesNumber = $stmt->rowCount();
+
+            if ($moviesNumber > 0) {
                 $moviesArray = $stmt->fetchAll();
 
-                foreach($moviesArray as $movie) {
-                    $movies[] = $this->buildMovie($movie);
+                if (isset($qtd)) {
+                    $n = $moviesNumber;
+                    if ($moviesNumber > $qtd) {
+                        $n = $qtd;
+                    }
+
+                    for ($i = 0; $i < $n; $i++) {
+                        $movies[] = $this->buildMovie($moviesArray[$i]);
+                    }
+                } else {
+                    foreach($moviesArray as $movie) {
+                        $movies[] = $this->buildMovie($movie);
+                    }
                 }
+            }
+
+            return $movies;
+        }
+
+        public function getBestMoviesByCategory($category, $qtd = null) {
+            $movies = [];
+
+            $stmt = $this->conn->prepare("
+                SELECT * FROM movies 
+                WHERE category = :category 
+                ORDER BY id DESC"
+            );
+
+            $stmt->bindParam(":category", $category);
+
+            $stmt->execute();
+
+            $moviesNumber = $stmt->rowCount();
+
+            if ($moviesNumber > 0) {
+                $moviesArray = $stmt->fetchAll();
+
+                if (isset($qtd)) {
+                    $n = $moviesNumber;
+                    if ($moviesNumber > $qtd) {
+                        $n = $qtd;
+                    }
+
+                    for ($i = 0; $i < $n; $i++) {
+                        $movies[] = $this->buildMovie($moviesArray[$i]);
+                    }
+                } else {
+                    foreach($moviesArray as $movie) {
+                        $movies[] = $this->buildMovie($movie);
+                    }
+                }
+
+                usort($movies, 'compareMovies');
             }
 
             return $movies;

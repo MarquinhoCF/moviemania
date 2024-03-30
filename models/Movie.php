@@ -18,8 +18,9 @@
 
         public function buildMovie($data);
         public function findAll();
-        public function getLatestMovies();
-        public function getMoviesByCategory($category);
+        public function getLatestMovies($qtd = null);
+        public function getMoviesByCategory($category, $qtd = null);
+        public function getBestMoviesByCategory($category, $qtd = null);
         public function getMoviesByUserId($userID);
         public function findById($id);
         public function findByTitle($title);

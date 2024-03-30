@@ -349,7 +349,7 @@
 }
 
 .actions-column {
-    max-width: 75px;
+    max-width: 150px;
     text-align: center;
 }
 
@@ -608,9 +608,8 @@
 }
 
 #result-empty-list {
-    margin-top: 60px;
+    margin-top: 20px;
 }
-
 
 /* FOOTER */
 
