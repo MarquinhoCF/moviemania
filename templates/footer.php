@@ -14,9 +14,18 @@
         </div>
         <div id="footer-links-container">
             <ul>
-                <li><a href="#">Adicionar Filmes</a></li>
-                <li><a href="#">Adicionar Crítica</a></li>
-                <li><a href="#">Entrar / Cadastrar</a></li>
+                <li><a href="<?= $BASE_URL ?>movielist.php">Melhores filmes</a></li>
+                <?php if($userData): ?>
+                    <li><a href="<?= $BASE_URL ?>newmovie.php">Adicionar Filmes</a></li>
+                    <li>
+                        <a href="<?= $BASE_URL ?>profile.php" class="nav-link bold">
+                                <?= $userData->name ?>
+                        </a>
+                    </li>
+                    <li><a href="<?= $BASE_URL ?>logout.php" class="nav-link" id="ent-reg">Sair</a></li>
+                <?php else: ?>
+                    <li><a href="<?= $BASE_URL ?>auth.php" class="nav-link" id="ent-reg">Entrar / Cadastrar</a></li>
+                <?php endif; ?>
             </ul>
         </div>
         <p>Copyright &copy; 2024 Movie Mania</p>

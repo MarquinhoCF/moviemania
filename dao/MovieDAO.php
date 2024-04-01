@@ -47,10 +47,6 @@
 
         }
 
-        public function findAll() {
-
-        }
-
         public function getLatestMovies($qtd = null) {
             $movies = [];
 
@@ -75,6 +71,42 @@
                     foreach($moviesArray as $movie) {
                         $movies[] = $this->buildMovie($movie);
                     }
+                }
+            }
+
+            return $movies;
+        }
+
+        public function getBestMovies($qtd = null) {
+            $movies = [];
+
+            $stmt = $this->conn->query("SELECT * FROM movies ORDER BY id DESC");
+            $stmt->execute();
+
+            $moviesNumber = $stmt->rowCount();
+
+            if ($moviesNumber > 0) {
+                $moviesArray = $stmt->fetchAll();
+
+                $moviesUncliped = [];
+
+                foreach($moviesArray as $movie) {
+                    $moviesUncliped[] = $this->buildMovie($movie);
+                }
+
+                usort($moviesUncliped, 'compareMovies');
+
+                if (isset($qtd)) {
+                    $n = $moviesNumber;
+                    if ($moviesNumber > $qtd) {
+                        $n = $qtd;
+                    }
+
+                    for ($i = 0; $i < $n; $i++) {
+                        $movies[] = $moviesUncliped[$i];
+                    }
+                } else {
+                    return $moviesUncliped;
                 }
             }
 
